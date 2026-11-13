@@ -48,7 +48,7 @@ class BikeController extends Controller
      */
     public function show(string $id)
     {
-        
+        $bike = Bike::findOrFail($id);
         return view('bikes.show', compact('bike'));
     }
 
