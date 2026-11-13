@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+//Página principal
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
 
 // Catálogo de bicicletas
-Route::get('/', [BikeController::class, 'index'])
+Route::get('/bikes', [BikeController::class, 'index'])
     ->name('bikes.index');
 
 
