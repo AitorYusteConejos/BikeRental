@@ -12,7 +12,11 @@ class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::with('bike')->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        $bookings = Booking::with('bike')
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
         return view('bookings.index', compact('bookings'));
     }
 
