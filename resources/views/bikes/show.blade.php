@@ -92,6 +92,41 @@
             font-size: 20px;
             font-weight: bold;
         }
+
+
+        .button {
+            display: block;
+            margin-top: 28px;
+            padding: 14px 20px;
+            border-radius: 10px;
+            background: #166a4c;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+        }
+
+
+        .button:hover {
+            background: #10533b;
+        }
+
+
+        .button:focus-visible,
+        .back:focus-visible {
+            outline: 3px solid #166a4c;
+            outline-offset: 4px;
+        }
+
+
+        .unavailable {
+            margin: 28px 0 0;
+            padding: 14px;
+            border-radius: 10px;
+            background: #f3f4f6;
+            color: #64748b;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -137,6 +172,17 @@
                     </span>
                 </div>
             </div>
+
+
+            @if ($bike->status === 'available')
+                <a class="button" href="{{ route('bookings.create', $bike) }}">
+                    Reservar esta bicicleta
+                </a>
+            @else
+                <p class="unavailable">
+                    Esta bicicleta no está disponible para reservar.
+                </p>
+            @endif
         </article>
     </main>
 </body>
