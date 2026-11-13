@@ -128,7 +128,13 @@
             text-align: center;
         }
     </style>
+ @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+@auth
+    @include('layouts.navigation')
+@else
+    @include('layouts.public-navigation')
+@endauth
 <body>
     <main class="container">
         <a class="back" href="{{ route('bikes.index') }}">

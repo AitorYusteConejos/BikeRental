@@ -126,8 +126,20 @@
             border-radius: 16px;
             color: #64748b;
         }
+        .pending {
+            display: block;
+            margin-top: 8px;
+            color: #b45309;
+            font-size: 13px;
+        }
     </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+@auth
+    @include('layouts.navigation')
+@else
+    @include('layouts.public-navigation')
+@endauth
 <body>
     <main class="container">
         <a class="back" href="{{ route('dashboard') }}">← Volver al dashboard</a>
@@ -145,19 +157,24 @@
 
 
                     <span class="status">
-                        @switch($bike->status)
-                            @case('available')
-                                Disponible
-                                @break
-                            @case('rented')
-                                Alquilada
-                                @break
-                            @case('maintenance')
-                                En mantenimiento
-                                @break
-                            @default
-                                {{ $bike->status }}
-                        @endswitch
+                        @if (auth()->check() && $bike->has_pending_booking)
+                            Reserva pendiente
+                            <span class="pending">Tienes una reserva pendiente para esta bicicleta.</span>
+                        @else
+                            @switch($bike->status)
+                                @case('available')
+                                    Disponible
+                                    @break
+                                @case('rented')
+                                    Alquilada
+                                    @break
+                                @case('maintenance')
+                                    En mantenimiento
+                                    @break
+                                @default
+                                    {{ $bike->status }}
+                            @endswitch
+                        @endif
                     </span>
 
 
@@ -172,4 +189,5 @@
         </div>
     </main>
 </body>
+
 </html>

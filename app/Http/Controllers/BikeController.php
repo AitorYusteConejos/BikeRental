@@ -13,7 +13,18 @@ class BikeController extends Controller
      */
     public function index()
     {
-        $bikes = Bike::all();
+        $query = Bike::query();
+
+        if (auth()->check()){
+            $query->withExists([
+                'bookings as has_pending_booking' => function ($query) {
+                    $query->where('user_id', auth()->id())
+                        ->where('status', 'pending');
+                }
+            ]);
+        }
+
+        $bikes = $query->get();
 
         return view('bikes.index', compact('bikes'));
     }
@@ -73,7 +84,8 @@ class BikeController extends Controller
             'status' => ['required', Rule::in(['available', 'rented', 'maintenance'])],
         ]);   
 
-        Bike::update($data);
+        $bike = Bike::findOrFail($id);
+        $bike->update($data);
 
         return redirect()->route('bikes.index')->with('success', 'Bicicleta actualizada correctamente.');
     }
@@ -83,6 +95,7 @@ class BikeController extends Controller
      */
     public function destroy(string $id)
     {
+        $bike = Bike::findOrFail($id);
         $bike->delete();
 
         return redirect()->route('bikes.index')->with('success', 'Bicicleta eliminada correctamente.');
