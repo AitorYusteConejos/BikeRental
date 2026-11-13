@@ -9,6 +9,7 @@ Route::get('/', function () {
 });
 
 Route::get('/bikes', [BikeController::class, 'index'])->name('bikes.index');
+Route::get('/bikes/{bike}', [BikeController::class, 'show'])->name('bikes.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
