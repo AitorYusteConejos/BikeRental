@@ -57,6 +57,7 @@ class BikeController extends Controller
      */
     public function edit(string $id)
     {
+        $bike = Bike::findOrFail($id);
         return view('bikes.edit', compact('bike'));
     }
 
