@@ -31,7 +31,7 @@ class BikeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request->validate([
+        $data = $request->validate([
             'serial_number' => ['required', 'string', 'unique:bikes, serial_number'],
             'model' => ['required', 'string', 'max:255'],
             'price_per_hour' => ['required', 'numeric', 'min:0'],
