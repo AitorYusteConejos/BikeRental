@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
 
-            $table->foreingId('user_id')->constrained();
-            $table->foreingId('bike_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('bike_id')->constrained();
 
             $table->dateTime('start_time');
             $table->dateTime('end_time');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking');
+        Schema::dropIfExists('bookings');
     }
 };
